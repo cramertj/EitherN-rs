@@ -1,4 +1,25 @@
-//! An `Either` enum over N different types.
+//! `Either` enums over N different types.
+//!
+//! # Example
+//!
+//!
+//! ```rust
+//! use either_n::Either7;
+//!
+//! let either7 = match 1 {
+//!     0 => Either7::One("a"),
+//!     1 => Either7::Two(5u32),
+//!     2 => Either7::Three("string".to_string()),
+//!     3 => Either7::Four([1,2,3]),
+//!     4 => Either7::Five([1,2,3,4,5,6]),
+//!     6 => Either7::Six(()),
+//!     _ => Either7::Seven(([()])),
+//! };
+//!
+//! assert_eq!(either7.as_ref().two(), Some(&5u32));
+//! assert_eq!(either7.six(), None);
+//! ```
+//!
 //!
 //! Thanks to @bluss for their `Either` crate.
 
