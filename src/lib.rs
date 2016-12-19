@@ -2,6 +2,13 @@
 //!
 //! Thanks to @bluss for their `Either` crate.
 
+#![cfg_attr(not(feature = "use_std"), no_std)]
+
+#[cfg(not(feature = "use_std"))]
+extern crate core as std;
+
+use std::fmt;
+
 // TODO: use to property order generic type parameters
 macro_rules! reverse_idents {
     () => {};
@@ -23,6 +30,22 @@ macro_rules! impl_enums {
         pub enum $enum_name_head<$n_titlecase_head, $( $n_titlecase_tail ),*> {
             $n_titlecase_head($n_titlecase_head),
             $( $n_titlecase_tail($n_titlecase_tail) ),*
+        }
+
+        impl<$n_titlecase_head, $( $n_titlecase_tail ),*> fmt::Display for
+            $enum_name_head<$n_titlecase_head, $( $n_titlecase_tail ),*>
+            where $n_titlecase_head: fmt::Display, $( $n_titlecase_tail: fmt::Display ),* {
+
+            fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+                match *self {
+                    $enum_name_head::$n_titlecase_head(ref value) => {
+                        value.fmt(f)
+                    },
+                    $( $enum_name_head::$n_titlecase_tail(ref value) => {
+                        value.fmt(f)
+                    } ),*
+                }
+            }
         }
 
         impl<$n_titlecase_head, $( $n_titlecase_tail ),*>
