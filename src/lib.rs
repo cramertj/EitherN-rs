@@ -80,7 +80,7 @@ impl_enums!(
     (Either5, Five, five),
     (Either4, Four, four),
     (Either3, Three, three),
-    (Either, Two, two),
+    (Either2, Two, two),
     (Single, One, one),
 );
 
