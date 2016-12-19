@@ -67,7 +67,7 @@ macro_rules! impl_enums {
                 match self {
                     $enum_name_head::$n_titlecase_head(value) => Some(value),
                     // Necessary to manually match to avoid impossible match
-                    // for `_ => None` on `Single` (aka `Either1`)
+                    // for `_ => None` on `Either1`
                     $( $enum_name_head::$n_titlecase_tail(_) => None ),*
                 }
             }
@@ -370,7 +370,7 @@ impl_enums!(
     (Either4, Four, four),
     (Either3, Three, three),
     (Either2, Two, two),
-    (Single, One, one),
+    (Either1, One, one),
 );
 
 #[cfg(test)]
