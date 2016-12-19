@@ -56,6 +56,17 @@ macro_rules! impl_enums {
                     )*
                 }
             }
+
+            pub fn as_mut(&mut self) -> $enum_name_head<&mut $n_titlecase_head, $( &mut $n_titlecase_tail ),*> {
+                match *self {
+                    $enum_name_head::$n_titlecase_head(ref mut value) =>
+                        $enum_name_head::$n_titlecase_head(value),
+                    $(
+                        $enum_name_head::$n_titlecase_tail(ref mut value) =>
+                            $enum_name_head::$n_titlecase_tail(value),
+                    )*
+                }
+            }
         }
 
         impl_enums!($( ($enum_name_tail, $n_titlecase_tail, $n_lowercase_tail), )*);
